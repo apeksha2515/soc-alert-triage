@@ -1,0 +1,6 @@
+IOC Type: Source IP Address
+IOC: 185.203.117.42
+Associated Alert: SOC-001
+Reason: Source of repeated failed authentication attempts
+Confidence: Medium
+Status: Requires Investigation

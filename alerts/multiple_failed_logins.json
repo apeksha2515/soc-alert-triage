@@ -1,0 +1,12 @@
+{
+  "alert_id": "SOC-001",
+  "alert_name": "Multiple Failed Login Attempts",
+  "timestamp": "2026-09-18T09:42:15Z",
+  "source_ip": "185.203.117.42",
+  "username": "administrator",
+  "failed_attempts": 8,
+  "event_id": 4625,
+  "host": "WIN-SOC-01",
+  "severity": "Medium",
+  "status": "New"
+}

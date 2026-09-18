@@ -1,0 +1,21 @@
+SOC-001 Additional Evidence
+
+1. Authentication timeline
+09:42:10 - Failed login - administrator - 185.203.117.42
+09:42:11 - Failed login - administrator - 185.203.117.42
+09:42:12 - Failed login - administrator - 185.203.117.42
+09:42:13 - Failed login - administrator - 185.203.117.42
+09:42:14 - Failed login - administrator - 185.203.117.42
+09:42:15 - Failed login - administrator - 185.203.117.42
+09:42:16 - Failed login - administrator - 185.203.117.42
+09:42:17 - Failed login - administrator - 185.203.117.42
+
+2. Successful authentication
+09:42:30 - Successful login - administrator - 185.203.117.42
+
+3. Additional activity
+09:43:02 - No additional suspicious activity observed.
+
+4. Scope
+No other accounts were targeted during this period.
+No other hosts were targeted during this period.
