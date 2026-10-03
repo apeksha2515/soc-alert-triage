@@ -1,0 +1,39 @@
+{
+  "alert_id": "SOC-004",
+  "title": "Lateral Movement via SMB and Remote Service Creation",
+  "source": "Wazuh (Sysmon + Windows Security Log)",
+  "timestamp": "2026-09-17T03:22:41Z",
+  "severity": "critical",
+  "source_host": "IT-ADMIN-02",
+  "target_host": "DC-01",
+  "user": "svc_backup",
+  "rule_id": "92710",
+  "description": "Following the SOC-003 credential-access incident, the same compromised service account was used to authenticate to a Domain Controller and create a remote service, consistent with PsExec-style lateral movement.",
+  "events": [
+    {
+      "event": "Windows Security 4624 (Logon)",
+      "host": "DC-01",
+      "logon_type": 3,
+      "account": "svc_backup",
+      "source_ip": "10.10.4.52"
+    },
+    {
+      "event": "Windows Security 5140 (Network Share Access)",
+      "host": "DC-01",
+      "share": "\\\\DC-01\\ADMIN$",
+      "account": "svc_backup"
+    },
+    {
+      "event": "Windows Security 7045 (Service Installed)",
+      "host": "DC-01",
+      "service_name": "PSEXESVC",
+      "binary_path": "C:\\Windows\\PSEXESVC.exe"
+    },
+    {
+      "event": "Sysmon Event ID 1 (Process Create)",
+      "host": "DC-01",
+      "process": "cmd.exe",
+      "command_line": "cmd.exe /c whoami /all > C:\\Windows\\Temp\\out.txt 2>&1"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+SOC-004 — Indicators of Compromise
+====================================
+
+Compromised account:    svc_backup
+Source host:              IT-ADMIN-02 (10.10.4.52)
+Target host:              DC-01 (Domain Controller)
+Share accessed:           \\DC-01\ADMIN$
+Service name:             PSEXESVC
+Service binary path:      C:\Windows\PSEXESVC.exe
+Recon command:            whoami /all > C:\Windows\Temp\out.txt
+Related case:             SOC-003 (same compromised account)
+
+Note: All values simulated for training/portfolio purposes.

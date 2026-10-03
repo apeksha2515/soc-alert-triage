@@ -1,0 +1,37 @@
+SOC-004 — Evidence Log
+=======================
+
+[03:22:41] Windows Security Event ID 4624 on DC-01: successful network logon
+           (Logon Type 3) for account svc_backup, source IP 10.10.4.52
+           (= IT-ADMIN-02, the host compromised in SOC-003).
+
+[03:22:44] Windows Security Event ID 5140: svc_backup accessed the ADMIN$
+           administrative share on DC-01 — a share used by remote
+           service-execution tools such as PsExec.
+
+[03:22:51] Windows Security Event ID 7045 (Service Installed) on DC-01:
+           new service "PSEXESVC" installed, binary path
+           C:\Windows\PSEXESVC.exe — this is the default service name/path
+           created by the Sysinternals PsExec tool.
+
+[03:22:55] Sysmon Event ID 1 on DC-01: cmd.exe launched by PSEXESVC.exe,
+           command line:
+             cmd.exe /c whoami /all > C:\Windows\Temp\out.txt 2>&1
+           -> Reconnaissance command, output redirected to a file for
+              later retrieval, consistent with an attacker enumerating
+              privileges after landing on a Domain Controller.
+
+[03:23:10] No further service creation or file transfer observed before
+           containment.
+
+[03:24:02] SOC on-call analyst disabled svc_backup domain-wide and
+           isolated DC-01 from the network pending forensic review
+           (correlated with the SOC-003 finding from the previous night).
+
+Correlation note:
+  This event uses the same compromised account (svc_backup) identified
+  in SOC-003. Timeline suggests the attacker returned ~4.5 hours after
+  the initial credential-access attempt to pivot toward the domain
+  controller — indicating the account was NOT fully contained after
+  SOC-003 and should have been rotated/disabled immediately rather than
+  only disabled after re-use was observed.
