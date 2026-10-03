@@ -1,0 +1,11 @@
+SOC-003 — Indicators of Compromise
+====================================
+
+Compromised account:   svc_backup
+Affected host:          IT-ADMIN-02
+Remote script host:     198.51.100.23
+Remote script:           http://198.51.100.23/inv.ps1
+Malicious command frag:  Invoke-Mimikatz -DumpCreds
+Target process:          lsass.exe (PID 712)
+
+Note: All values simulated for training/portfolio purposes.

